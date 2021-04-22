@@ -25,6 +25,10 @@ class UserController {
         );
     }
   }
+
+  async update(request, response) {
+    response.json({ ok: true });
+  }
 }
 
 export default new UserController();
