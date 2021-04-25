@@ -13,7 +13,7 @@ class User extends Model {
       },
       {
         sequelize,
-        tableName: "User",
+        tableName: "user",
       }
     );
 

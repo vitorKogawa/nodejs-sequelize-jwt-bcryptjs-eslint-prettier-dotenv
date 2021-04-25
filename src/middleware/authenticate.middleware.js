@@ -1,27 +1,25 @@
 import { verify } from "jsonwebtoken";
 import "../config/env.config";
 
-export default (request, response, next_function) => {
+export default async (request, response, next_function) => {
   const { authorization } = request.headers;
 
   if (!authorization) {
     return response.sendStatus(401);
   } else {
-    const token = authorization.replace("Bearer ", "").trim();
+    const token = authorization.replace("Bearer ", "").trim(); //tbm pode ser const [, token] = authorization.slipt(" ");
     try {
-      const payload = verify(token, process.env.JWT_SECRET);
+      const payload = await verify(token, process.env.JWT_SECRET);
       if (!payload) {
         return response.sendSatus(400);
       } else {
-          return response.status(200).json(payload)
+        request.userId = payload.id;
+        return next_function();
       }
     } catch (error) {
-      return response
-        .status(500)
-        .json({
-          message:
-            error.message || "Erro interno na tentativa de autenticação.",
-        });
+      return response.status(500).json({
+        message: error.message || "Erro interno na tentativa de autenticação.",
+      });
     }
   }
 };

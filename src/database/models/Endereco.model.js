@@ -11,6 +11,12 @@ class Endereco extends Model {
       },
       { sequelize, tableName: "Endereco" }
     );
+
+    return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.User, { foreignKey: "userId" });
   }
 }
 
