@@ -28,6 +28,10 @@ class User extends Model {
     return this;
   }
 
+  static associate(models){
+    User.hasMany(models.File)
+  }
+
   checkPassword(password){
     return compare(password, this.password_hash)
   }

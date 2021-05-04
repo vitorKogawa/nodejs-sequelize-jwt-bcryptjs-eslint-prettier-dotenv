@@ -1,24 +1,26 @@
 import express from "express";
+import cors from "cors";
 import { routes } from "./routes";
 import helmet from "helmet";
 import "./database/index";
 
 class App {
-  constructor() {
-    this.server = express();
+    constructor() {
+        this.server = express();
 
-    this.middlewares();
-    this.routes();
-  }
+        this.middlewares();
+        this.routes();
+    }
 
-  middlewares() {
-    this.server.use(express.json());
-    this.server.use(helmet());
-  }
+    middlewares() {
+        this.server.use(cors());
+        this.server.use(express.json());
+        this.server.use(helmet());
+    }
 
-  routes() {
-    this.server.use(routes);
-  }
+    routes() {
+        this.server.use(routes);
+    }
 }
 
 export default new App().server;

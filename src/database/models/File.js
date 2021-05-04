@@ -7,13 +7,13 @@ class File extends Model {
         name: Sequelize.STRING,
         path: Sequelize.STRING,
       },
-      { sequelize }
+      { sequelize, tableName: "file" }
     );
     return this;
   }
 
   static associate(models) {
-    this.belongsTo(models.File, { foreignKey: "userId" });
+    this.belongsTo(models.User, { foreignKey: "userId", as: "user" });
   }
 }
 
